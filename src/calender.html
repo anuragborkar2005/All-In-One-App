@@ -35,31 +35,31 @@
         <!-- Navigation -->
         <div class="relative mt-8 space-y-2">
           <a
-            href="/src/digitalwatch/index.html"
+            href="digitalwatch.html"
             class="text-sm cursor-pointer block w-full rounded-md px-4 py-2 font-semibold text-white hover:bg-indigo-800"
           >
             <i class="fa-solid hover:fa-solid fa-clock mr-2"></i>Digital Watch
           </a>
           <a
-            href="/src/index.html"
+            href="index.html"
             class="text-sm cursor-pointer block w-full rounded-md px-4 py-2 font-semibold text-white hover:bg-indigo-800"
           >
             <i class="fa-regular hover:fa-solid fa-bell mr-2"></i>Reminder
           </a>
           <a
-            href="/src/stopwatch/index.html"
+            href="stopwatch.html"
             class="text-sm cursor-pointer block w-full rounded-md px-4 py-2 font-semibold text-white hover:bg-indigo-800"
           >
             <i class="fa-solid fa-stopwatch mr-2"></i>Stop Watch
           </a>
           <a
-            href="/src/calender/index.html"
+            href="calender.html"
             class="text-sm cursor-pointer block w-full rounded-md bg-indigo-800 px-4 py-2 font-semibold text-white"
           >
             <i class="fa-regular fa-calendar-days mr-2"></i>Calender
           </a>
           <a
-            href="/src/weather/index.html"
+            href="weather.html"
             class="text-sm cursor-pointer block w-full rounded-md px-4 py-2 font-semibold text-white hover:bg-indigo-800"
           >
             <i class="fa-solid fa-cloud mr-2"></i>Weather
@@ -193,6 +193,121 @@
         </main>
       </div>
     </div>
-    <script src="main.js"></script>
+    <script>
+      const menuButton = document.getElementById("menu-button");
+      const sidebar = document.getElementById("sidebar");
+
+      // Get Current Year and Month
+      let currentMonth = new Date().getMonth();
+      let currentYear = new Date().getFullYear();
+      const month = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+      ];
+
+      document.getElementById("month").textContent =
+        month[currentMonth] + " " + currentYear;
+
+      // Calculate Total Days in Month
+      function getDaysInMonth(month, year) {
+        return new Date(year, month + 1, 0).getDate();
+      }
+
+      // Get Starting Day of the Month
+      function getStartDayOfMonth(month, year) {
+        return new Date(year, month, 1).getDay();
+      }
+
+      // Generating a Calendar
+      function generateCalendar(month, year) {
+        const daysInMonth = getDaysInMonth(month, year);
+        const start = getStartDayOfMonth(month, year);
+
+        const calendar = [];
+        // Add Empty Cells for days before list
+        for (let i = 0; i < start; i++) {
+          calendar.push(null);
+        }
+        // Adding Days of the Months
+        for (let day = 1; day <= daysInMonth; day++) {
+          calendar.push(day);
+        }
+
+        return calendar;
+      }
+
+      // Rendering Calendar in Rows
+      function renderCalendarGrid(calendar) {
+        const weeks = [];
+        for (let i = 0; i < calendar.length; i += 7) {
+          weeks.push(calendar.slice(i, i + 7));
+        }
+        return weeks;
+      }
+
+      // Rendering A Calendar
+      function renderCalendar(weeks) {
+        const calendarGrid = document.getElementById("calendar-grid");
+        calendarGrid.innerHTML = ""; // Clear Previous Calendar
+        weeks.forEach((week) => {
+          week.forEach((day) => {
+            const dayCell = document.createElement("div");
+            dayCell.className =
+              "py-2 text-center rounded-full hover:bg-blue-200";
+            dayCell.textContent = day;
+            calendarGrid.appendChild(dayCell);
+          });
+        });
+      }
+
+      const weeks = renderCalendarGrid(
+        generateCalendar(currentMonth, currentYear)
+      );
+      renderCalendar(weeks);
+
+      document.querySelector("#prev").addEventListener("click", () => {
+        currentMonth--;
+        if (currentMonth < 0) {
+          currentMonth = 11;
+          currentYear--;
+        }
+        document.getElementById("month").textContent =
+          month[currentMonth] + " " + currentYear;
+
+        const weeks = renderCalendarGrid(
+          generateCalendar(currentMonth, currentYear)
+        );
+        renderCalendar(weeks);
+      });
+
+      document.querySelector("#next").addEventListener("click", () => {
+        currentMonth++;
+        if (currentMonth > 11) {
+          currentMonth = 0;
+          currentYear++;
+        }
+        document.getElementById("month").textContent =
+          month[currentMonth] + " " + currentYear;
+
+        const weeks = renderCalendarGrid(
+          generateCalendar(currentMonth, currentYear)
+        );
+        renderCalendar(weeks);
+      });
+
+      menuButton.addEventListener("click", () => {
+        sidebar.classList.toggle("-translate-x-full");
+      });
+    </script>
   </body>
 </html>

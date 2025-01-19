@@ -35,31 +35,31 @@
         <!-- Navigation -->
         <div class="relative mt-8 space-y-2">
           <a
-            href="/src/digitalwatch/index.html"
+            href="digitalwatch.html"
             class="text-sm cursor-pointer block w-full rounded-md bg-indigo-800 px-4 py-2 font-semibold text-white"
           >
             <i class="fa-solid hover:fa-solid fa-clock mr-2"></i>Digital Watch
           </a>
           <a
-            href="/src/index.html"
+            href="index.html"
             class="text-sm cursor-pointer block w-full rounded-md px-4 py-2 font-semibold text-white hover:bg-indigo-800"
           >
             <i class="fa-regular hover:fa-solid fa-bell mr-2"></i>Reminder
           </a>
           <a
-            href="/src/stopwatch/index.html"
+            href="stopwatch.html"
             class="text-sm cursor-pointer block w-full rounded-md px-4 py-2 font-semibold text-white hover:bg-indigo-800"
           >
             <i class="fa-solid fa-stopwatch mr-2"></i>Stop Watch
           </a>
           <a
-            href="/src/calender/index.html"
+            href="calender.html"
             class="text-sm cursor-pointer block w-full rounded-md px-4 py-2 font-semibold text-white hover:bg-indigo-800"
           >
             <i class="fa-regular fa-calendar-days mr-2"></i>Calender
           </a>
           <a
-            href="/src/weather/index.html"
+            href="weather.html"
             class="text-sm cursor-pointer block w-full rounded-md px-4 py-2 font-semibold text-white hover:bg-indigo-800"
           >
             <i class="fa-solid fa-cloud mr-2"></i>Weather
@@ -156,6 +156,25 @@
         </main>
       </div>
     </div>
-    <script src="main.js"></script>
+    <script>
+      const menuButton = document.getElementById("menu-button");
+      const sidebar = document.getElementById("sidebar");
+
+      let currentTime = () => {
+        let time = new Date().toLocaleTimeString();
+        document.getElementById(
+          "time"
+        ).innerHTML = `<h1>${time.toUpperCase()}</h1>`;
+      };
+
+      currentTime();
+      setInterval(() => {
+        currentTime();
+      }, 1000);
+
+      menuButton.addEventListener("click", () => {
+        sidebar.classList.toggle("-translate-x-full");
+      });
+    </script>
   </body>
 </html>
