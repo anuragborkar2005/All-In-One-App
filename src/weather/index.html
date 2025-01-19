@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather Application</title>
+    <link rel="stylesheet" href="/src/output.css" />
+    <link rel="shortcut icon" href="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=500" type="image/x-icon">
+    <script src="https://kit.fontawesome.com/d4b2d93939.js" crossorigin="anonymous"></script>
+  </head>
+  <body class="fixed w-full h-full bg-gray-100">
+    <div class="flex h-full">
+      <!-- Sidebar Section -->
+      <div id="sidebar" class="fixed inset-y-0 left-0 z-30 w-64 bg-indigo-700 p-4 transform -translate-x-full transition-transform lg:translate-x-0 lg:static lg:inset-0">
+        <!-- Logo -->
+        <div class="flex items-center p-4">
+          <div class="shrink-0">
+            <img class="size-8" src="https://tailwindui.com/plus/img/logos/mark.svg?color=white" alt="Your Company" />
+          </div>
+        </div>
+        <!-- Navigation -->
+        <div class="relative mt-8 space-y-2">
+          <a href="/src/digitalwatch/index.html" class="text-sm cursor-pointer block w-full rounded-md px-4 py-2 font-semibold text-white hover:bg-indigo-800">
+            <i class="fa-regular hover:fa-solid fa-clock mr-2"></i>Digital Watch
+          </a>
+          <a href="/src/index.html" class="text-sm cursor-pointer block w-full rounded-md px-4 py-2 font-semibold text-white hover:bg-indigo-800">
+            <i class="fa-regular hover:fa-solid fa-bell mr-2"></i>Reminder
+          </a>
+          <a href="/src/stopwatch/index.html" class="text-sm cursor-pointer block w-full rounded-md px-4 py-2 font-semibold text-white hover:bg-indigo-800">
+            <i class="fa-solid fa-stopwatch mr-2"></i>Stop Watch
+          </a>
+          <a href="/src/calender/index.html" class="text-sm cursor-pointer block w-full rounded-md px-4 py-2 font-semibold text-white hover:bg-indigo-800">
+            <i class="fa-regular fa-calendar-days mr-2"></i>Calender
+          </a>
+          <a href="/src/weather/index.html" class="text-sm cursor-pointer block w-full rounded-md bg-indigo-800 px-4 py-2 font-semibold text-white">
+            <i class="fa-solid fa-cloud mr-2"></i>Weather
+          </a>
+        </div>
+      </div>
+      <!-- Main Content -->
+      <div class="flex-1 flex flex-col overflow-hidden">
+        <!-- Header Section -->
+        <header class="flex items-center justify-between bg-white shadow px-4 py-2">
+          <div class="flex items-center">
+            <button title="menu" id="menu-button" class="lg:hidden text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
+              <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+              </svg>
+            </button>
+            <div class="flex items-center ml-4">
+              <img class="h-8 w-8" src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=500" alt="Your Company" />
+              <span class="ml-4 text-lg font-medium">Weather Application</span>
+            </div>
+          </div>
+          <!-- Search Bar -->
+          <div class="hidden md:block">
+            <div class="relative">
+              <label for="search" class="sr-only">Search</label>
+              <input id="search" name="search" type="search" class="block w-64 pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="Search" />
+              <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <svg class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-5.2-5.2M15 11a4 4 0 1 1-8 0 4 4 0 0 1 8 0z" />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </header>
+        <!-- Main Section -->
+        <main class="flex-1 overflow-y-auto p-4 bg-gradient-to-r from-teal-100 via-blue-100 to-purple-100">
+          <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h1 class="text-3xl font-bold tracking-tight text-gray-900">Weather</h1>
+            <div class="mt-6 max-h-md container mx-auto flex w-96 flex-col items-center justify-center overflow-hidden rounded-xl bg-white p-4 shadow-xl">
+              <!-- City Search -->
+              <div class="mx-auto block">
+                <div class="ml-10 flex items-baseline space-x-4">
+                  <div class="relative">
+                    <label for="search-city" class="sr-only">Search</label>
+                    <input id="search-city" name="search" type="text" class="block w-64 rounded-md border border-gray-300 bg-white py-2 pl-10 pr-3 leading-5 placeholder-gray-500 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm" placeholder="Enter City Name" />
+                    <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                      <svg class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-5.2-5.2M15 11a4 4 0 1 1-8 0 4 4 0 0 1 8 0z" />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="mx-auto mt-3 flex flex-col gap-1">
+                <div id="city-name" class="text-center text-lg font-semibold">City Name, Country</div>
+                <div id="date-time" class="text-center text-xs text-gray-700">Date, Time</div>
+                <div id="status" class="mx-auto mt-4 rounded-full bg-black px-6 py-3 text-sm text-white">Cloud</div>
+                <div id="icon" class="mx-auto mt-3 h-auto w-36"></div>
+                <div class="flex flex-col items-center">
+                  <div id="temp" class="text-lg font-semibold leading-6">75 &#176</div>
+                  <div class="flex justify-between">
+                    <div id="min-temp" class="text-lg font-semibold leading-6 mr-2">Min: 10 &#176 </div>
+                    <div id="max-temp" class="ml-2 text-lg font-semibold leading-6">Max: 26 &#176 </div>
+                  </div>
+                </div>
+              </div>
+              <div class="grid w-full grid-cols-2">
+                <div class="flex items-center border-indigo-500 p-4 focus:outline">
+                  <i class="fa-solid fa-droplet mr-4"></i>
+                  <div class="text-xs font-bold">
+                    <h4>Feels Like</h4>
+                    <span id="feels-like">15&#176</span>
+                  </div>
+                </div>
+                <div class="flex items-center border-indigo-500 p-4 focus:outline">
+                  <i class="fa-solid fa-droplet mr-4"></i>
+                  <div class="text-xs font-bold">
+                    <h4>Humidity</h4>
+                    <span id="humidity">15&#176</span>
+                  </div>
+                </div>
+                <div class="flex items-center border-indigo-500 p-4 focus:outline">
+                  <i class="fa-solid fa-wind mr-4"></i>
+                  <div class="text-xs font-bold">
+                    <h4>Wind</h4>
+                    <span id="wind">mph</span>
+                  </div>
+                </div>
+                <div class="flex items-center border-indigo-500 p-4 focus:outline">
+                  <i class="fa-solid fa-gauge-high mr-4"></i>
+                  <div class="text-xs font-bold">
+                    <h4>Pressure</h4>
+                    <span id="pressure">15&#176</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+    <script src="/src/weather/main.js"></script>
+  </body>
+</html>
