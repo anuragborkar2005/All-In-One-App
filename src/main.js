@@ -101,12 +101,12 @@ function renderTask() {
         }</p>
       </div>
       <div class="card-action p-4 flex gap-x-2">
-        <button class="mark-complete text-white text-xs px-4 py-2 bg-indigo-600 hover:bg-indigo-700 rounded-md">
+        <button class="mark-complete text-white text-xs px-3 py-2 bg-indigo-600 hover:bg-indigo-700 rounded-md">
           <i class="fa-solid fa-check mr-2"></i>${
             task.completed ? "Completed" : "Mark as Complete"
           }
         </button>
-        <button class="delete-task text-white text-xs px-4 py-2 bg-indigo-600 hover:bg-indigo-700 rounded-md">
+        <button class="delete-task text-white text-xs px-3 py-2 bg-indigo-600 hover:bg-indigo-700 rounded-md">
           <i class="fa-solid fa-trash mr-2"></i>Delete
         </button>
       </div>
