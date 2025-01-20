@@ -181,4 +181,9 @@ saveTask.addEventListener("click", () => {
   }
 });
 
+function saveTask(){
+  localStorage.setItem("tasks",JSON.stringify(tasks));
+  renderTask();
+}
+
 renderTask();
