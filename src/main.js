@@ -17,6 +17,12 @@ menuButton.addEventListener("click", () => {
   sidebar.classList.toggle("-translate-x-full");
 });
 
+document.addEventListener("click", (e) => {
+  if (!sidebar.contains(e.target) && !menuButton.contains(e.target)) {
+    sidebar.classList.add("-translate-x-full");
+  }
+});
+
 // Show/hide task input form
 createTask.addEventListener("click", () => {
   taskInput.classList.toggle("hidden");
