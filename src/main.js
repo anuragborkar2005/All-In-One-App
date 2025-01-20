@@ -40,26 +40,35 @@ function renderTask() {
       "px-4",
       "overflow-hidden",
       "py-2",
-      "w-80",
-      "h-56"
+      "w-full",
+      "lg:w-80",
+      "h-auto"
     );
+
     taskElement.innerHTML = `
-    <div class="card-title p-4 w-96 h-72 rounded-xl">
-    <h4 class="text-sm font-semibold">${task.title}</h4>
-    <span class="text-xs text-gray-500">${task.date}</span>
-    </div>
-    <div class="px-4">
-        <p class="card-content text-xs font-normal text-gray-700">${
-          task.description
-        }</p>
-    </div>
-    <div class="card-action p-4 flex h-36 gap-x-2">
-        <button id="mark-complete" onclick="markComplete(${index})" class="text-white text-xs mr-2  px-2 py-1 right-0 bg-indigo-600 hover:bg-indigo-700 p-4 rounded-md"><i class="fa-solid fa-check mr-2"></i> ${
-      task.completed ? "Completed" : "Mark as Complete"
-    }</button>
-        <button id="delete-task" onclick="deleteTask(${index})" class="text-white text-xs ml-2 px-2  py-1 right-0 bg-indigo-600 hover:bg-indigo-700 p-4 rounded-md"><i class="fa-solid fa-trash mr-2"></i> Delete</button>
-    </div>
-`;
+      <div class="card-title p-4">
+        <h4 class="text-sm font-semibold">${task.title}</h4>
+        <span class="text-xs text-gray-500">${task.date}</span>
+      </div>
+      <div class="px-4">
+        <p class="card-content text-xs font-normal text-gray-700">${task.description}</p>
+      </div>
+      <div class="card-action p-4 flex gap-x-2">
+        <button class="mark-complete text-white text-xs px-2 py-1 bg-indigo-600 hover:bg-indigo-700 rounded-md">
+          <i class="fa-solid fa-check mr-2"></i>${task.completed ? "Completed" : "Mark as Complete"}
+        </button>
+        <button class="delete-task text-white text-xs px-2 py-1 bg-indigo-600 hover:bg-indigo-700 rounded-md">
+          <i class="fa-solid fa-trash mr-2"></i>Delete
+        </button>
+      </div>
+    `;
+
+    const markCompleteBtn = taskElement.querySelector(".mark-complete");
+    const deleteTaskBtn = taskElement.querySelector(".delete-task");
+
+    markCompleteBtn.addEventListener("click", () => markComplete(index));
+    deleteTaskBtn.addEventListener("click", () => deleteTask(index));
+
     tasksList.appendChild(taskElement);
   });
 }
@@ -68,12 +77,11 @@ function markComplete(index) {
   tasks[index].completed = true;
   saveTasks();
 }
+
 function deleteTask(index) {
   tasks.splice(index, 1);
   saveTasks();
 }
-
-renderTask();
 
 function getDateFormat(date) {
   let d = new Date(date);
@@ -98,27 +106,29 @@ saveTask.addEventListener("click", () => {
   const title = taskTitle.value.trim();
   const description = taskDescription.value.trim();
   const date = taskDate.value.trim();
+
   if (title === "" || description === "" || date === "") {
     alert("All fields are required");
     return;
-  } else {
-    const task = {
-      title: title,
-      description: description,
-      date: getDateFormat(date),
-      completed: false,
-    };
-    tasks.push(task);
-    taskTitle.value = "";
-    taskDescription.value = "";
-    taskDate.value = "";
-    saveTasks();
-    taskInput.classList.toggle("hidden");
   }
+
+  const task = {
+    title: title,
+    description: description,
+    date: getDateFormat(date),
+    completed: false,
+  };
+
+  tasks.push(task);
+  taskTitle.value = "";
+  taskDescription.value = "";
+  taskDate.value = "";
+  saveTasks();
+  taskInput.classList.toggle("hidden");
 
   if (notifyRequest === "granted") {
     const notification = new Notification("Task Created", {
-      body: `Task ${title} has been created`,
+      body: `Task "${title}" has been created`,
     });
 
     notification.addEventListener("click", () => {
@@ -126,3 +136,5 @@ saveTask.addEventListener("click", () => {
     });
   }
 });
+
+renderTask();
