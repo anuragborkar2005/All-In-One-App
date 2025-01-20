@@ -89,6 +89,7 @@ function markComplete(index) {
 
 // Delete a task
 function deleteTask(index) {
+  console.log("Deleting at index: ", index);
   tasks.splice(index, 1);
   saveTasks();
 }
