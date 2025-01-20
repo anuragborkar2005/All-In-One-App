@@ -9,13 +9,6 @@ const tasksList = document.getElementById("tasks-list");
 const menuButton = document.getElementById("menu-button");
 const sidebar = document.getElementById("sidebar");
 
-let notifyRequest = false;
-
-// Request notification permissions
-Notification.requestPermission().then((result) => {
-  notifyRequest = result;
-});
-
 // Load tasks from local storage or initialize an empty array
 let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
@@ -59,17 +52,11 @@ function createTaskElement(task, index) {
       }</p>
     </div>
     <div class="card-action p-4 flex justify-between items-center">
-      <button class="mark-complete text-white text-xs px-3 py-2  bg-indigo-600 hover:bg-indigo-700 rounded-md">
-        <i class="fa-solid fa-check mr-2"></i>${
-          task.completed ? "Completed" : "Mark as Complete"
-        }
-    <div class="card-action p-4 flex gap-x-2">
       <button class="mark-complete text-white text-xs px-3 py-2 bg-indigo-600 hover:bg-indigo-700 rounded-md">
         <i class="fa-solid fa-check mr-2"></i>${
           task.completed ? "Completed" : "Mark as Complete"
         }
       </button>
-      <button class="delete-task text-white text-xs px-3 py-2  bg-indigo-600 hover:bg-indigo-700 rounded-md">
       <button class="delete-task text-white text-xs px-3 py-2 bg-indigo-600 hover:bg-indigo-700 rounded-md">
         <i class="fa-solid fa-trash mr-2"></i>Delete
       </button>
@@ -87,7 +74,7 @@ function createTaskElement(task, index) {
 
 // Render all tasks in the list
 function renderTasks() {
-  tasksList.innerHTML = "";
+  tasksList.innerHTML = ""; // Clear existing tasks
   tasks.forEach((task, index) => {
     const taskElement = createTaskElement(task, index);
     tasksList.appendChild(taskElement);
@@ -142,30 +129,20 @@ saveTask.addEventListener("click", () => {
   // Add the task to the tasks array
   tasks.push(task);
 
-  // Clear inputs
+  // Clear the input fields
   taskTitle.value = "";
   taskDescription.value = "";
   taskDate.value = "";
   taskInput.classList.add("hidden");
 
-  // Save tasks and show notification
+  // Save the tasks and update the UI
   saveTasks();
-
-  if (notifyRequest === "granted") {
-    const notification = new Notification("Task Created", {
-      body: `Task "${title}" has been created.`,
-    });
-
-    notification.addEventListener("click", () => {
-      window.focus();
-    });
-  }
 });
 
-// Save tasks to local storage and render them
+// Save tasks to localStorage and render them
 function saveTasks() {
   localStorage.setItem("tasks", JSON.stringify(tasks));
-  renderTasks();
+  renderTasks(); // Ensure tasks are rendered after saving
 }
 
 // Initial render
